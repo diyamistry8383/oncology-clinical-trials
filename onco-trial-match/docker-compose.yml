@@ -1,0 +1,71 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: onco_postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: onco_user
+      POSTGRES_PASSWORD: onco_pass
+      POSTGRES_DB: onco_trials
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U onco_user -d onco_trials"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  chromadb:
+    image: chromadb/chroma:0.5.23
+    container_name: onco_chromadb
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    volumes:
+      - chroma_data:/chroma/chroma
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:8000/api/v1/heartbeat || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  backend:
+    build:
+      context: ./backend
+    container_name: onco_backend
+    restart: unless-stopped
+    env_file:
+      - ./backend/.env
+    environment:
+      POSTGRES_HOST: postgres
+      CHROMA_HOST: chromadb
+    ports:
+      - "8001:8001"
+    volumes:
+      - ./backend:/app
+    depends_on:
+      postgres:
+        condition: service_healthy
+      chromadb:
+        condition: service_healthy
+
+  frontend:
+    build:
+      context: ./frontend
+    container_name: onco_frontend
+    restart: unless-stopped
+    environment:
+      VITE_BACKEND_HOST: backend
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    depends_on:
+      - backend
+
+volumes:
+  postgres_data:
+  chroma_data:

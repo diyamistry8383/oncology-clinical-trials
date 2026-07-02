@@ -1,0 +1,131 @@
+// src/data/biomarkers.js
+// All oncology biomarkers with colors, descriptions, cancer types
+
+export const BIOMARKERS = [
+    {
+        id: "EGFR",
+        label: "EGFR",
+        fullName: "Epidermal Growth Factor Receptor",
+        color: "#6366F1",
+        bg: "#EEF2FF",
+        cancerTypes: ["Lung Cancer", "Colorectal Cancer", "Head & Neck Cancer"],
+        description: "Mutation in EGFR gene — targetable with TKI therapy",
+        targetedTherapies: ["Erlotinib", "Gefitinib", "Osimertinib", "Afatinib"],
+        icon: "🧬",
+    },
+    {
+        id: "HER2",
+        label: "HER2",
+        fullName: "Human Epidermal Growth Factor Receptor 2",
+        color: "#E91E8C",
+        bg: "#FDE8F3",
+        cancerTypes: ["Breast Cancer", "Gastric Cancer", "Ovarian Cancer"],
+        description: "HER2 overexpression — targetable with anti-HER2 therapy",
+        targetedTherapies: ["Trastuzumab", "Pertuzumab", "T-DM1", "Lapatinib"],
+        icon: "🎀",
+    },
+    {
+        id: "KRAS",
+        label: "KRAS",
+        fullName: "Kirsten Rat Sarcoma Viral Proto-oncogene",
+        color: "#F57F17",
+        bg: "#FFF8E1",
+        cancerTypes: ["Colorectal Cancer", "Lung Cancer", "Pancreatic Cancer"],
+        description: "KRAS mutation — historically undruggable, now targetable",
+        targetedTherapies: ["Sotorasib", "Adagrasib"],
+        icon: "🟡",
+    },
+    {
+        id: "BRAF",
+        label: "BRAF",
+        fullName: "B-Raf Proto-oncogene",
+        color: "#8B5CF6",
+        bg: "#F5F3FF",
+        cancerTypes: ["Melanoma", "Colorectal Cancer", "Thyroid Cancer"],
+        description: "BRAF V600E mutation — targetable with BRAF inhibitors",
+        targetedTherapies: ["Vemurafenib", "Dabrafenib", "Encorafenib"],
+        icon: "🟣",
+    },
+    {
+        id: "ALK",
+        label: "ALK",
+        fullName: "Anaplastic Lymphoma Kinase",
+        color: "#0891B2",
+        bg: "#ECFEFF",
+        cancerTypes: ["Lung Cancer", "Lymphoma", "Neuroblastoma"],
+        description: "ALK rearrangement — targetable with ALK inhibitors",
+        targetedTherapies: ["Crizotinib", "Alectinib", "Brigatinib", "Lorlatinib"],
+        icon: "🔵",
+    },
+    {
+        id: "PD-L1",
+        label: "PD-L1",
+        fullName: "Programmed Death Ligand 1",
+        color: "#059669",
+        bg: "#ECFDF5",
+        cancerTypes: ["Lung Cancer", "Melanoma", "Bladder Cancer", "Cervical Cancer"],
+        description: "PD-L1 expression — predicts response to immunotherapy",
+        targetedTherapies: ["Pembrolizumab", "Atezolizumab", "Durvalumab"],
+        icon: "🟢",
+    },
+    {
+        id: "BRCA1",
+        label: "BRCA1",
+        fullName: "Breast Cancer Gene 1",
+        color: "#DC2626",
+        bg: "#FEF2F2",
+        cancerTypes: ["Breast Cancer", "Ovarian Cancer", "Pancreatic Cancer"],
+        description: "BRCA1 mutation — targetable with PARP inhibitors",
+        targetedTherapies: ["Olaparib", "Rucaparib", "Niraparib"],
+        icon: "🔴",
+    },
+    {
+        id: "BRCA2",
+        label: "BRCA2",
+        fullName: "Breast Cancer Gene 2",
+        color: "#B45309",
+        bg: "#FEF3C7",
+        cancerTypes: ["Breast Cancer", "Ovarian Cancer", "Prostate Cancer"],
+        description: "BRCA2 mutation — targetable with PARP inhibitors",
+        targetedTherapies: ["Olaparib", "Rucaparib", "Talazoparib"],
+        icon: "🟠",
+    },
+    {
+        id: "IDH1",
+        label: "IDH1",
+        fullName: "Isocitrate Dehydrogenase 1",
+        color: "#374151",
+        bg: "#F9FAFB",
+        cancerTypes: ["Brain Tumors", "AML", "Cholangiocarcinoma"],
+        description: "IDH1 mutation — targetable with IDH1 inhibitors",
+        targetedTherapies: ["Ivosidenib", "Enasidenib"],
+        icon: "🧠",
+    },
+    {
+        id: "MSI",
+        label: "MSI-H",
+        fullName: "Microsatellite Instability High",
+        color: "#7C3AED",
+        bg: "#EDE9FE",
+        cancerTypes: ["Colorectal Cancer", "Endometrial Cancer", "Gastric Cancer"],
+        description: "MSI-H status — predicts response to checkpoint inhibitors",
+        targetedTherapies: ["Pembrolizumab", "Nivolumab", "Dostarlimab"],
+        icon: "🔮",
+    },
+];
+
+export const TREATMENT_TYPES = [
+    { id: "chemotherapy", label: "Chemotherapy", icon: "💊", color: "#6366F1" },
+    { id: "immunotherapy", label: "Immunotherapy", icon: "🛡️", color: "#059669" },
+    { id: "radiation", label: "Radiation", icon: "☢️", color: "#F59E0B" },
+    { id: "surgery", label: "Surgery", icon: "🔪", color: "#EF4444" },
+    { id: "targeted", label: "Targeted Therapy", icon: "🎯", color: "#8B5CF6" },
+    { id: "hormone", label: "Hormone Therapy", icon: "⚗️", color: "#EC4899" },
+];
+
+export function getBiomarkerInfo(name) {
+    return BIOMARKERS.find(b =>
+        b.id.toLowerCase() === name.toLowerCase() ||
+        name.toLowerCase().includes(b.id.toLowerCase())
+    );
+}

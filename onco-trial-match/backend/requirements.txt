@@ -1,0 +1,52 @@
+# --- Web framework ---
+fastapi==0.115.6
+uvicorn[standard]==0.32.1
+pydantic==2.10.3
+pydantic-settings==2.7.0
+
+# --- Database ---
+sqlalchemy==2.0.36
+asyncpg==0.30.0
+alembic==1.14.0
+
+# --- Vector store ---
+chromadb==0.5.23
+
+# --- NLP / embeddings (Step 4: BioBERT embedder) ---
+# IMPORTANT: chromadb 0.5.23 requires tokenizers<=0.20.3. transformers
+# versions newer than ~4.46 require tokenizers>=0.21, which conflicts.
+# transformers<4.46 is the newest line still compatible with chromadb's
+# tokenizers ceiling, so we cap it there instead of exact-pinning (exact
+# pins on this many interlocking ML packages tend to break on the next
+# patch release of any one of them). Let pip resolve compatible patch
+# versions of sentence-transformers/torch within these bounds.
+transformers>=4.41.0,<4.46.0
+sentence-transformers>=3.0.0,<3.1.0
+torch>=2.2.0,<2.6.0
+
+# --- LLM client (used from Step 3 fallback onward, and Step 5) ---
+anthropic==0.42.0
+
+# --- HTTP client for ClinicalTrials.gov ingestion (Step 2) ---
+httpx==0.28.1
+
+# --- Testing ---
+pytest==8.3.4
+pytest-asyncio==0.25.0
+
+# --- Security ---
+slowapi==0.1.9
+bleach==6.2.0
+
+# --- Dev tooling ---
+python-dotenv==1.0.1
+
+# --- Import & Upload (Step 7 extension) ---
+pandas==2.2.3
+openpyxl==3.1.5
+python-multipart==0.0.19
+# --- LLM client (used from Step 3 fallback onward, and Step 5) ---
+anthropic==0.42.0
+openai==1.58.1
+google-genai==1.31.0
+openai>=1.40.0
