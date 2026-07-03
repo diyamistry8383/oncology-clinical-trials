@@ -5,10 +5,9 @@ import axios from "axios";
 // build portable across docker-compose, local dev, and any future deploy
 // target without code changes.
 const client = axios.create({
-    baseURL: "/api",
+    baseURL: import.meta.env.VITE_API_BASE_URL || "/api",
     headers: { "Content-Type": "application/json" },
 });
-
 // --- Trials ---
 export const listTrials = (params = {}) => client.get("/trials", { params }).then((r) => r.data);
 export const getTrial = (trialId) => client.get(`/trials/${trialId}`).then((r) => r.data);
