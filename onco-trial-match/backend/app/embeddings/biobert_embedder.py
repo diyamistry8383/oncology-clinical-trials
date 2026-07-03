@@ -27,7 +27,7 @@ _model_lock = threading.Lock()
 
 # Default to a sentence-similarity-tuned biomedical model. Override via
 # BIOBERT_MODEL_NAME in .env if a different checkpoint is preferred.
-_DEFAULT_MODEL_NAME = "pritamdeka/S-BioBert-snli-multinli-stsb"
+_DEFAULT_MODEL_NAME = "sentence-transformers/all-MiniLM-L6-v2"
 
 
 def _get_model():
