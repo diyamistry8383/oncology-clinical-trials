@@ -14,17 +14,17 @@ from app.config import get_settings
 
 settings = get_settings()
 
-_client: chromadb.HttpClient | None = None
+_client = None
 
 
-def get_chroma_client() -> chromadb.HttpClient:
-    """Lazily create a singleton ChromaDB HTTP client pointed at the chromadb service."""
+def get_chroma_client():
+    """Lazily create a singleton ChromaDB Cloud client."""
     global _client
     if _client is None:
-        _client = chromadb.HttpClient(
-            host=settings.CHROMA_HOST,
-            port=settings.CHROMA_PORT,
-            settings=ChromaSettings(anonymized_telemetry=False),
+        _client = chromadb.CloudClient(
+            api_key=settings.CHROMA_API_KEY,
+            tenant=settings.CHROMA_TENANT,
+            database=settings.CHROMA_DATABASE,
         )
     return _client
 

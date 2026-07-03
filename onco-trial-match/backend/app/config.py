@@ -27,9 +27,13 @@ class Settings(BaseSettings):
         )
 
     # --- ChromaDB ---
+    # --- ChromaDB ---
     CHROMA_HOST: str = "chromadb"
     CHROMA_PORT: int = 8000
     CHROMA_COLLECTION_TRIALS: str = "trial_eligibility"
+    CHROMA_API_KEY: str = ""
+    CHROMA_TENANT: str = ""
+    CHROMA_DATABASE: str = ""
 
     # --- ClinicalTrials.gov ---
     CLINICALTRIALS_API_BASE: str = "https://clinicaltrials.gov/api/v2"
